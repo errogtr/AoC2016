@@ -25,4 +25,3 @@ while len(password) < 8:
             password[pos] = id_hash[6]
     idx += 1
 print("".join(password[pos] for pos in sorted(password)))
-
