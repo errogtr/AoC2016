@@ -13,7 +13,6 @@ while len(password) < 8:
     idx += 1
 print(password)
 
-
 # ==== PART 2 ====
 password = dict()
 idx = 0
