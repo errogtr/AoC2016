@@ -8,7 +8,7 @@ def parse(instruction):
 
 
 def rotate(row, shift, length):
-    return row[-shift:] + row[:length-shift]
+    return row[-shift:] + row[: length - shift]
 
 
 with open("data") as f:
@@ -27,7 +27,10 @@ for instruction in instructions:
         direction, idx, shift = parse(instruction)
         if direction == "x":
             rotated = rotate([row[idx] for row in display], shift, Ly)
-            display = [[rotated[y] if x == idx else v for x, v in enumerate(row)] for y, row in enumerate(display)]
+            display = [
+                [rotated[y] if x == idx else v for x, v in enumerate(row)]
+                for y, row in enumerate(display)
+            ]
         else:
             display[idx] = rotate(display[idx], shift, Lx)
 print(sum(sum(v == "#" for v in row) for row in display))
