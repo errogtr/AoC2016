@@ -2,6 +2,15 @@ import re
 from itertools import product
 
 
+def parse(instruction):
+    direction, idx, shift = re.search(r"(x|y)=(\d+) by (\d+)", instruction).groups()
+    return direction, int(idx), int(shift)
+
+
+def rotate(row, shift, length):
+    return row[-shift:] + row[:length-shift]
+
+
 with open("data") as f:
     instructions = f.read().splitlines()
 
@@ -15,13 +24,12 @@ for instruction in instructions:
         for x, y in product(range(max_x), range(max_y)):
             display[y][x] = "#"
     else:  # rotate
-        direction, idx, shift = re.search(r"(x|y)=(\d+) by (\d+)", instruction).groups()
+        direction, idx, shift = parse(instruction)
         if direction == "x":
-            transposed = list(zip(*display))
-            transposed[int(idx)] = [p for _, p in sorted(((j + int(shift)) % Ly, pixel) for j, pixel in enumerate(transposed[int(idx)]))]
-            display = [list(row) for row in zip(*transposed)]
+            rotated = rotate([row[idx] for row in display], shift, Ly)
+            display = [[rotated[y] if x == idx else v for x, v in enumerate(row)] for y, row in enumerate(display)]
         else:
-            display[int(idx)] = [p for _, p in sorted(((j + int(shift)) % Lx, pixel) for j, pixel in enumerate(display[int(idx)]))]
+            display[idx] = rotate(display[idx], shift, Lx)
 print(sum(sum(v == "#" for v in row) for row in display))
 
 # ==== PART 2 ====
