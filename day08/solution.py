@@ -1,6 +1,5 @@
 import re
 from itertools import product
-from copy import copy
 
 
 with open("data") as f:
