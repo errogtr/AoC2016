@@ -37,4 +37,4 @@ print(steps)
 
 # ==== PART 2 ====
 # works because steps is > 50
-print(len({pos for steps, pos in visited if steps == 50}))
+print(len({pos for steps, pos in visited if steps <= 50}))
