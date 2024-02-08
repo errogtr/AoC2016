@@ -36,5 +36,6 @@ while queue:
 print(steps)
 
 # ==== PART 2 ====
-# works because steps is > 50
+# works because for my input steps is > 50 and by construction
+# heapqueue already exhausted all visited position with at most 50 steps
 print(len({pos for steps, pos in visited if steps <= 50}))
